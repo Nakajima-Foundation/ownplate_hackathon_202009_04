@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<router-link :to="`/blogs/test/${blog.id}`">
+		<router-link :to="`blogs/${blog.id}`">
 			<div class="card-image">
 				<figure class="image is-1by1">
 					<img :src="blog.imageUrl" alt="Placeholder image">
@@ -29,7 +29,7 @@ import { db } from "~/plugins/firebase.js";
 
 export default {
 	props: [
-		'blog'
+		'blog',
 	],
 	data() {
 		return {

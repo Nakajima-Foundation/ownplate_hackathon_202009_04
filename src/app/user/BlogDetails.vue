@@ -10,7 +10,7 @@
           <!-- Title -->
           <!-- <div class="t-h6 c-text-black-disabled m-t-24">{{$t("find.area")}}</div> -->
 					<!-- <img src="./test.jpeg"  /> -->
-					<img src="./test.jpeg"  />
+					<img :src="imageUrl"/>
 					<!-- <div style="background-image: url({{image_url}});" /> -->
 					<!-- <p> {{image_url}} </p> -->
 					<div>
@@ -88,12 +88,15 @@ export default {
   data() {
     return {
 			title: '',
-			image_url: '',
+			imageUrl: '',
 			body: '',
 		}
 	},
 	mounted() {
-		let blogRef = db.collection('restaurants/SeRsv7mMLjPmjDATVZqH/blogs').doc('0cKePr6lGsD7sTXgQdSr');
+    const restaurantId = this.$route.params.restaurantId
+    const blogId = this.$route.params.blogId
+		console.log(blogId);
+		let blogRef = db.collection(`restaurants/${restaurantId}/blogs`).doc(`${blogId}`);
 		let getDoc = blogRef.get()
 		.then(doc => {
 			if (!doc.exists) {
@@ -101,7 +104,7 @@ export default {
 			} else {
 				console.log('Document data:', doc.data());
 				this.title = doc.data().title;
-				this.image_url = doc.data().image_url;
+				this.imageUrl = doc.data().imageUrl;
 				this.body = doc.data().body;
 			}
 		})

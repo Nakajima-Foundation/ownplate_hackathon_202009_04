@@ -3,7 +3,9 @@
 		<h1>ブログ一覧ページ</h1>
 		<div class="columns is-multiline">
 			<ul v-for="(blog, index) in blogs" :key="index" class="column is-3 blog-card">
-				<Blog :blog="blog"/>
+				<Blog 
+				:blog="blog" 
+				/>
 			</ul>
 		</div>
 	</div>
@@ -19,11 +21,12 @@ export default {
 	},
 	data() {
 		return {
-			blogs: []
+			blogs: [],
 		}
 	},
 	mounted() {
-		db.collection('restaurants/SeRsv7mMLjPmjDATVZqH/blogs').get().then((ref) => {
+    	const restaurantId = this.$route.params.restaurantId
+		db.collection(`restaurants/${restaurantId}/blogs`).get().then((ref) => {
 			ref.forEach((doc) => {
 				if (!doc.exists) {
 					console.log('No such document!');
