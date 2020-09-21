@@ -9,7 +9,9 @@
         <div class="m-l-24 m-r-24 m-t-24">
           <!-- Title -->
           <!-- <div class="t-h6 c-text-black-disabled m-t-24">{{$t("find.area")}}</div> -->
+					<!-- <img src="./test.jpeg"  /> -->
 					<img src="./test.jpeg"  />
+					<!-- <div style="background-image: url({{image_url}});" /> -->
 					<!-- <p> {{image_url}} </p> -->
 					<div>
 						<h1> {{ title }} </h1>
@@ -98,7 +100,6 @@ export default {
 				console.log('No such document!');
 			} else {
 				console.log('Document data:', doc.data());
-				console.log(doc.data().title);
 				this.title = doc.data().title;
 				this.image_url = doc.data().image_url;
 				this.body = doc.data().body;
