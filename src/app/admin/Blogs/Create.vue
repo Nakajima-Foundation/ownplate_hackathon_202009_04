@@ -10,28 +10,15 @@
           <div class="column is-three-fifths is-offset-one-fifth">
             <div class="m-l-24 m-r-24">
               <!-- English -->
-              <div v-if="!isLocaleJapan">
-                <h2>Post an article</h2>
+              <div>
+                <h2>記事を投稿</h2>
                 <b-field>
-                  <b-input v-model="name" placeholder="Title"></b-input>
-                </b-field>
-                <div>
-                  <img src="https://fakeimg.pl/640x200/?text=画像をドラッグドロップ&font=noto" />
-                </div>
-                <b-field>
-                  <b-input maxlength="1000" rows="20" type="textarea" placeholder="Contents"></b-input>
-                </b-field>
-                <b-field grouped position="is-right">
-                  <b-button type="is-success" outlined>Save as draft</b-button>
-                  <b-button type="is-success">Post</b-button>
-                </b-field>
-              </div>
-
-              <!-- Japanese -->
-              <div v-else>
-                <h2>ニュースを投稿</h2>
-                <b-field>
-                  <b-input v-model="name" placeholder="タイトル"></b-input>
+                  <text-form
+                    v-model="blogInfo.title"
+                    titleKey="shopInfo.name"
+                    placeholder="タイトル"
+                    :maxlength="50"
+                  />
                 </b-field>
                 <div>
                   <img src="https://fakeimg.pl/640x200/?text=画像をドラッグドロップ&font=noto" />
@@ -48,8 +35,6 @@
           </div>
         </div>
       </div>
-      <!-- Right Gap -->
-      <div class="column is-narrow w-24"></div>
     </div>
   </div>
 </template>
@@ -59,6 +44,18 @@ import { releaseConfig } from "~/plugins/config.js";
 
 export default {
   name: "HomePage",
+
+  data() {
+    return {
+      blogInfo: {
+        title: "",
+        imageUrl: "",
+        createdAt: "",
+        isPublic: false,
+        body: ""
+      }
+    };
+  },
 
   computed: {
     hideUsersLink() {
