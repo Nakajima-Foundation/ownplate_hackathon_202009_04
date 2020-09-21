@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<router-link to="">
+		<router-link :to="`/blogs/test/${blog.id}`">
 			<div class="card-image">
 				<figure class="image is-1by1">
 					<img :src="blog.imageUrl" alt="Placeholder image">
@@ -11,9 +11,11 @@
 					<div>{{ blog.title }}</div>
 				</div>
 				<div class="content">
-					{{ blog.body }} 
+					<div class="blog-body">
+						{{ blog.body }} 
+					</div>
 					<br>
-					<time  datetime="20:00">
+					<time datetime="2011-11-18">
 						{{ blog.createdAt.toDate() }}
 					</time>
 				</div>
@@ -44,4 +46,18 @@ export default {
 .card-image {
 	padding: 10px;
 }
+.card-content {
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.media {
+	color: black;
+	font-weight: bold;
+}
+.blog-body {
+	color: black;
+}
+
 </style>
