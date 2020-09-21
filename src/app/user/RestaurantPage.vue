@@ -62,6 +62,8 @@
             </div>
           </div>
 
+          
+
           <!-- Right Column -->
           <div class="column">
             <div class="m-l-24 m-r-24">
@@ -93,6 +95,8 @@
           <div class="column is-narrow w-24"></div>
         </div>
       </div>
+
+      <Blogs />
 
       <!-- Phone Login-->
       <b-modal :active.sync="loginVisible" :width="488" scroll="keep">
@@ -144,6 +148,7 @@ import ShopHeader from "~/app/user/Restaurant/ShopHeader";
 import SharePopup from "~/app/user/Restaurant/SharePopup";
 import ShopInfo from "~/app/user/Restaurant/ShopInfo";
 import NotFound from "~/components/NotFound";
+import Blogs from "~/app/user/Blogs";
 
 import { db, firestore, functions } from "~/plugins/firebase.js";
 import { order_status } from "~/plugins/constant.js";
@@ -159,7 +164,8 @@ export default {
     ShopHeader,
     SharePopup,
     ShopInfo,
-    NotFound
+    NotFound,
+    Blogs,
   },
   head() {
     // TODO: add area to header

@@ -117,7 +117,7 @@
 			<div class="align-center m-t-16">
         <b-button
           tag="nuxt-link"
-          :to="`/admin/restaurants/${restaurantid}/create-blog`"
+          :to="`/admin/restaurants/${restaurantid}/blogs`"
           style="min-width: 256px;"
           class="b-reset op-button-small secondary"
         >

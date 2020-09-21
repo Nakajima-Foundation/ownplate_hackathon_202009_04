@@ -1,6 +1,6 @@
 <template>
-	<div class="blogs">
-		<h1>ブログ一覧ページ</h1>
+  <div class="blogs">
+    <h1>ブログ一覧</h1>
 		<div class="columns is-multiline">
 			<ul v-for="(blog, index) in blogs" :key="index" class="column is-3 blog-card">
 				<Blog 

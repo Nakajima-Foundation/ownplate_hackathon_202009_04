@@ -20,26 +20,41 @@
                 </b-field>
                 <div>
                   <div class="flex-1">
-                    <croppa
-                      :width="128"
-                      :height="128"
-                      :prevent-white-space="true"
-                      :zoom-speed="5"
-                      :accept="'image/jpeg'"
-                      :placeholder="$t('editCommon.clickAndUpload')"
-                      :placeholder-font-size="13"
-                      :disable-drag-to-move="true"
-                      :disable-scroll-to-zoom="true"
-                      :disable-rotation="true"
-                      initial-position="center"
-                      :canvas-color="'gainsboro'"
-                      :show-remove-button="true"
-                      @file-choose="handleEyecatchImage"
-                      @file-type-mismatch="handleEyecatchImageRemove"
-                      @image-remove="handleEyecatchImageRemove"
-                    ></croppa>
-                    <div class="align-center t-caption w-128">
-                      {{ $t("editCommon.new") }}
+                    <div class="cols">
+                      <div v-if="blogInfo.imageUrl" class="p-r-16">
+                        <div>
+                          <img
+                            class="w-128 h-128 r-4 cover"
+                            :src="blogInfo.imageUrl"
+                          />
+                        </div>
+                        <div class="align-center t-caption">
+                          {{ $t("editCommon.current") }}
+                        </div>
+                      </div>
+                      <div>
+                        <croppa
+                          :width="128"
+                          :height="128"
+                          :prevent-white-space="true"
+                          :zoom-speed="5"
+                          :accept="'image/jpeg'"
+                          :placeholder="$t('editCommon.clickAndUpload')"
+                          :placeholder-font-size="13"
+                          :disable-drag-to-move="true"
+                          :disable-scroll-to-zoom="true"
+                          :disable-rotation="true"
+                          initial-position="center"
+                          :canvas-color="'gainsboro'"
+                          :show-remove-button="true"
+                          @file-choose="handleEyecatchImage"
+                          @file-type-mismatch="handleEyecatchImageRemove"
+                          @image-remove="handleEyecatchImageRemove"
+                        ></croppa>
+                        <div class="align-center t-caption w-128">
+                          {{ $t("editCommon.new") }}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -54,7 +69,7 @@
                 />
               </b-field>
               <b-field grouped position="is-right">
-                <b-button type="submit" outlined @click="submitDraft">
+                <b-button outlined type="submit" @click="submitDraft">
                   下書きとして保存
                 </b-button>
                 <b-button type="submit" @click="submitArticle">
@@ -85,10 +100,25 @@ export default {
         public: false,
         body: "",
         files: {}
-      }
+      },
+      blogId: this.$route.params.blogId,
+      restaurantsId: this.restaurantId()
     };
   },
-
+  mounted() {
+    db.collection(`restaurants/${this.restaurantsId}/blogs/`)
+      .doc(`${this.blogId}`)
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          this.blogInfo.title = doc.data().title;
+          this.blogInfo.imageUrl = doc.data().imageUrl;
+          this.blogInfo.body = doc.data().body;
+        }
+      });
+  },
   methods: {
     handleEyecatchImage(e) {
       const newFile = Object.assign({}, this.files);
@@ -123,7 +153,8 @@ export default {
         await db
           .doc(`restaurants/${this.restaurantId()}`)
           .collection("blogs")
-          .add(cleanData);
+          .doc(this.blogId)
+          .set(cleanData);
 
         this.$router.push({
           path: `/admin/restaurants/${this.restaurantId()}/blogs`
@@ -155,7 +186,8 @@ export default {
         await db
           .doc(`restaurants/${this.restaurantId()}`)
           .collection("blogs")
-          .add(cleanData);
+          .doc(this.blogId)
+          .set(cleanData);
 
         this.$router.push({
           path: `/admin/restaurants/${this.restaurantId()}/blogs`
