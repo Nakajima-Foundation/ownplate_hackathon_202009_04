@@ -101,8 +101,9 @@ export default {
     async submitArticle() {
       const restaurantId = this.restaurantId();
       try {
+        const date = new Date() ;
         if (this.files["eyecatch"]) {
-          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/${this.uid}/eyecatch.jpg`;
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
           this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
         }
         const articleData = {
@@ -126,6 +127,11 @@ export default {
     async submitDraft() {
       const restaurantId = this.restaurantId();
       try {
+        const date = new Date() ;
+        if (this.files["eyecatch"]) {
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
+          this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
+        }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
