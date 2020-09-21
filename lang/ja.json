@@ -508,7 +508,10 @@
     },
     "report": {
       "title": "月次報告"
-    },
+		},
+		"blogs": {
+			"title": "ブログ管理"
+		},
     "error": {
       "email": {
         "invalid": "無効なメールアドレスです。",

@@ -5,6 +5,11 @@ export const customRoutes = [
     component: "user/RootPage.vue"
   },
   {
+    name: "Blogs",
+    path: "/blogs",
+    component: "user/Blogs.vue"
+  },
+  {
     name: "RestaurantsAll",
     path: "/r/area/all",
     component: "user/Restaurants/All.vue"
@@ -112,6 +117,10 @@ export const customRoutes = [
       {
         path: "report",
         component: "admin/ReportPage.vue"
+      },
+      {
+        path: "create-blog",
+        component: "admin/Blogs/Create.vue"
       },
       {
         name: "admin-order-info",

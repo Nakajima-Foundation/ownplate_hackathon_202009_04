@@ -93,7 +93,7 @@ export default {
 		}
 	},
 	mounted() {
-		let blogRef = db.collection('restaurants/SeRsv7mMLjPmjDATVZqH/blogs').doc('MzLF2XjWVtF3BXJwE02f');
+		let blogRef = db.collection('restaurants/SeRsv7mMLjPmjDATVZqH/blogs').doc('0cKePr6lGsD7sTXgQdSr');
 		let getDoc = blogRef.get()
 		.then(doc => {
 			if (!doc.exists) {

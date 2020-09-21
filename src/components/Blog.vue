@@ -1,19 +1,40 @@
 <template>
-  <b-button class="b-reset h-36 r-36 bg-form" tag="nuxt-link" :to="url">
-    <span class="p-l-16 p-r-16">
-      <i class="material-icons c-primary s-18 m-r-8">arrow_back</i>
-      <span class="c-primary t-button">{{ $t('button.back') }}</span>
-    </span>
-  </b-button>
+	<div>
+		<div class="column card is-10">
+			<div class="card-image">
+				<figure class="image is-3by2">
+					<img src="https://bulma.io/images/placeholders/480x320.png" alt="Placeholder image">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+					<div>タイトル</div>
+				</div>
+				<div class="content">
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error qui esse corporis et harum provident architecto nostrum? Quia nam pariatur, 
+					<br>
+					<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-  props: {
-		body: String,
-		image_url: String,
-		public: true,
-		title: String,
-  }
-};
+	data() {
+		return {
+			
+		}
+	},
+}
 </script>
+
+<style lang="css" scoped>
+.card {
+	margin-top: 10px;
+}
+.card-image {
+	padding: 10px;
+}
+</style>
