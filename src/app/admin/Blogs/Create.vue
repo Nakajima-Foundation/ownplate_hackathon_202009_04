@@ -13,18 +13,23 @@
               <div>
                 <h2>記事を投稿</h2>
                 <b-field>
-                  <text-form
+                  <b-input
                     v-model="blogInfo.title"
-                    titleKey="shopInfo.name"
                     placeholder="タイトル"
-                    :maxlength="50"
+                    maxlength="50"
                   />
                 </b-field>
                 <div>
                   <img src="https://fakeimg.pl/640x200/?text=画像をドラッグドロップ&font=noto" />
                 </div>
                 <b-field>
-                  <b-input maxlength="1000" rows="20" type="textarea" placeholder="本文"></b-input>
+                  <b-input 
+                    v-model="blogInfo.body"
+                    maxlength="1000"
+                    rows="20" 
+                    type="textarea" 
+                    placeholder="本文"
+                  />
                 </b-field>
                 <b-field grouped position="is-right">
                   <b-button type="is-success" outlined>下書きとして保存</b-button>
