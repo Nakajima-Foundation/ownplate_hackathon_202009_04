@@ -101,14 +101,15 @@ export default {
     async submitArticle() {
       const restaurantId = this.restaurantId();
       try {
+        createdAt = firestore.FieldValue.serverTimestamp()
         if (this.files["eyecatch"]) {
-          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/${this.uid}/eyecatch.jpg`;
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${createdAt}.jpg`;
           this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
         }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
-          createdAt: firestore.FieldValue.serverTimestamp(),
+          createdAt: createdAt,
           public: true,
           body: this.blogInfo.body,
         }
