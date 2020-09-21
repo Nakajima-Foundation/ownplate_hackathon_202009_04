@@ -10,8 +10,9 @@
           <!-- Title -->
           <!-- <div class="t-h6 c-text-black-disabled m-t-24">{{$t("find.area")}}</div> -->
 					<img src="./test.jpeg"  />
+					<!-- <p> {{image_url}} </p> -->
 					<div>
-						<h1>ブログタイトル</h1>
+						<h1> {{ title }} </h1>
 					</div>
 
 					<div>
@@ -19,7 +20,7 @@
 					</div>
 
 					<div>
-						<p> ブログ内容</p>
+						<p> {{ body }} </p>
 					</div>
 
         </div>
@@ -45,35 +46,23 @@
       <div class="column is-narrow w-24"></div>
     </div>
     <!-- Likes Header Area -->
-    <div class="columns is-gapless" v-if="likes.length > 0">
+    <div class="columns is-gapless" >
       <!-- Left Gap -->
       <div class="column is-narrow w-24"></div>
       <!-- Center Column -->
       <div class="column">
         <div class="m-l-24 m-r-24 m-t-24">
           <!-- Title -->
-          <div class="t-h6 c-text-black-disabled m-t-24">{{$t("find.likes")}}</div>
-          <div v-for="like in likes" :key="like.restaurantId" class="m-t-8">
             <div class="h-full p-b-8 p-r-8">
-              <router-link :to="`/r/${like.restaurantId}`">
                 <div class="touchable h-full">
                   <div class="cols flex-center">
                     <!-- Restaurant Profile -->
-                    <div class="m-r-16 h-48">
-                      <img :src="resizedProfileImage(like, '600')" class="w-48 h-48 r-48 cover" />
-                    </div>
 
                     <!-- Restaurant Name -->
-                    <div class="flex-1 p-r-8 t-subtitle1 c-primary">
-                      {{
-                      like.restaurantName
-                      }}
-                    </div>
+                    
                   </div>
                 </div>
-              </router-link>
             </div>
-          </div>
         </div>
       </div>
       <!-- Right Gap -->
@@ -87,72 +76,37 @@ import { db } from "~/plugins/firebase.js";
 import { RestaurantHeader } from "~/plugins/header.js";
 import AreaItem from "~/app/user/Restaurants/AreaItem";
 import { ownPlateConfig } from "@/config/project";
+import Blog from "~/components/Blog";
+import firebase from 'firebase';
 
 export default {
   components: {
-    AreaItem
+    Blog,
   },
   data() {
     return {
-      // # Need to rewrite for Areas instead of Restaurants.
-      region: ownPlateConfig.region,
-      likes: [],
-      restaurants: [],
-      areas:
-        ownPlateConfig.region == "JP"
-          ? [
-              { name: "東京都あ", id: 12 },
-              { name: "群馬県", id: 9 },
-              { name: "埼玉県", id: 10 },
-              { name: "福岡県", id: 39 },
-              { name: "福井県", id: 17 },
-              { name: "山梨県", id: 18 },
-              { name: "大阪府", id: 26 },
-              { name: "兵庫県", id: 27 },
-              { name: "広島県", id: 33 },
-              { name: "長崎県", id: 41 }
-            ]
-          : [{ name: "Washington", id: 46 }]
-    };
+			title: '',
+			image_url: '',
+			body: '',
+		}
+	},
+	mounted() {
+		let blogRef = db.collection('restaurants/SeRsv7mMLjPmjDATVZqH/blogs').doc('MzLF2XjWVtF3BXJwE02f');
+		let getDoc = blogRef.get()
+		.then(doc => {
+			if (!doc.exists) {
+				console.log('No such document!');
+			} else {
+				console.log('Document data:', doc.data());
+				console.log(doc.data().title);
+				this.title = doc.data().title;
+				this.image_url = doc.data().image_url;
+				this.body = doc.data().body;
+			}
+		})
+		.catch(err => {
+			console.log('Error getting document', err);
+		});
   },
-  head() {
-    const title = [
-      this.$t("pageTitle.restaurantRoot"),
-      ownPlateConfig.siteName
-    ].join(" / ");
-    return Object.assign(RestaurantHeader, { title });
-  },
-  async mounted() {
-    if (this.isUser) {
-      const snapshot = await db
-        .collection(`users/${this.user.uid}/reviews`)
-        .orderBy("timeLiked", "desc")
-        .limit(100)
-        .get();
-      this.likes = (snapshot.docs || []).map(doc => {
-        return doc.data();
-      });
-    }
-  }
-  // # Need to rewrite for Areas instead of Restaurants.
-  /*
-  async created() {
-    try {
-      const res = await db
-        .collection("restaurants")
-        .where("publicFlag", "==", true)
-        .where("deletedFlag", "==", false)
-        .get();
-      this.restaurants = (res.docs || []).map(doc => {
-        const data = doc.data();
-        data.id = doc.id;
-        return data;
-      });
-      console.log(this.restaurants.length, this.restaurants);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-*/
 };
 </script>
