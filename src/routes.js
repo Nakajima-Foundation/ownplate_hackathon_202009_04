@@ -1,7 +1,7 @@
 export const customRoutes = [
   {
     name: "r",
-    path: "/r",
+		path: "/r",
     component: "user/RootPage.vue"
   },
   {
