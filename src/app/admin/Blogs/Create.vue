@@ -32,8 +32,8 @@
                   />
                 </b-field>
                 <b-field grouped position="is-right">
-                  <b-button type="is-success" outlined>下書きとして保存</b-button>
-                  <b-button type="is-success">投稿</b-button>
+                  <b-button @click="submitDraft" type="submit" outlined>下書きとして保存</b-button>
+                  <b-button @click="submitArticle" type="submit">投稿</b-button>
                 </b-field>
               </div>
             </div>
@@ -46,6 +46,7 @@
 
 <script>
 import { releaseConfig } from "~/plugins/config.js";
+import { db, storage, firestore } from "~/plugins/firebase.js";
 
 export default {
   name: "HomePage",
@@ -56,12 +57,56 @@ export default {
         title: "",
         imageUrl: "",
         createdAt: "",
-        isPublic: false,
+        public: false,
         body: ""
       }
     };
   },
 
+  methods: {
+
+    async submitArticle() {
+      const restaurantId = this.restaurantId();
+      try {
+        const articleData = {
+          title: this.blogInfo.title,
+          imageUrl: this.blogInfo.imageUrl,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+          public: true,
+          body: this.blogInfo.body,
+        }
+        const cleanData = this.cleanObject(articleData);
+        await db.doc(`restaurants/${this.restaurantId()}`).collection("blogs").add(cleanData);
+  
+        this.$router.push({
+          path: `/admin/restaurants/${this.restaurantId()}/blogs`
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  
+    async submitDraft() {
+      const restaurantId = this.restaurantId();
+      try {
+        const articleData = {
+          title: this.blogInfo.title,
+          imageUrl: this.blogInfo.imageUrl,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+          public: false,
+          body: this.blogInfo.body,
+        }
+        const cleanData = this.cleanObject(articleData);
+        await db.doc(`restaurants/${this.restaurantId()}`).collection("blogs").add(cleanData);
+  
+        this.$router.push({
+          path: `/admin/restaurants/${this.restaurantId()}/blogs`
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
   computed: {
     hideUsersLink() {
       return releaseConfig.hideUsersLink;
