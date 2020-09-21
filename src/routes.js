@@ -60,6 +60,11 @@ export const customRoutes = [
     component: "user/TransactionsAct.vue"
   },
   {
+    name: "CreateNews",
+    path: "/news/create",
+    component: "/news/Create.vue"
+  },
+  {
     name: "admin",
     path: "/admin/restaurants",
     component: "admin/Index.vue"
