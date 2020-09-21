@@ -6,13 +6,13 @@ export const customRoutes = [
   },
   {
     name: "Blogs",
-    path: "/blogs",
+    path: "/r/:restaurantId/blogs/",
     component: "user/Blogs.vue"
   },
   {
-    name: "test",
-    path: "/blogs/test/:blogId",
-    component: "user/test.vue"
+    name: "BlogDetails",
+    path: "/r/:restaurantId/blogs/:blogId",
+    component: "user/BlogDetails.vue"
   },
   {
     name: "RestaurantsAll",
