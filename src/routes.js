@@ -10,6 +10,11 @@ export const customRoutes = [
     component: "user/Blogs.vue"
   },
   {
+    name: "test",
+    path: "/blogs/test/:blogId",
+    component: "user/test.vue"
+  },
+  {
     name: "RestaurantsAll",
     path: "/r/area/all",
     component: "user/Restaurants/All.vue"
