@@ -9,7 +9,6 @@
         <div class="columns is-gaplress">
           <div class="column is-three-fifths is-offset-one-fifth">
             <div class="m-l-24 m-r-24">
-              <!-- English -->
               <div>
                 <h2>記事を投稿</h2>
                 <b-field>
@@ -20,7 +19,28 @@
                   />
                 </b-field>
                 <div>
-                  <img src="https://fakeimg.pl/640x200/?text=画像をドラッグドロップ&font=noto" />
+                  <div class="flex-1">
+                    <croppa
+                      :width="128"
+                      :height="128"
+                      :prevent-white-space="true"
+                      :zoom-speed="5"
+                      :accept="'image/jpeg'"
+                      :placeholder="$t('editCommon.clickAndUpload')"
+                      :placeholder-font-size="13"
+                      :disable-drag-to-move="true"
+                      :disable-scroll-to-zoom="true"
+                      :disable-rotation="true"
+                      initial-position="center"
+                      :canvas-color="'gainsboro'"
+                      :show-remove-button="true"
+                      @file-choose="handleEyecatchImage"
+                      @file-type-mismatch="handleEyecatchImageRemove"
+                      @image-remove="handleEyecatchImageRemove"
+                    ></croppa>
+                    <div class="align-center t-caption w-128">{{ $t("editCommon.new") }}</div>
+                  </div>
+                </div>
                 </div>
                 <b-field>
                   <b-input 
@@ -58,16 +78,33 @@ export default {
         imageUrl: "",
         createdAt: "",
         public: false,
-        body: ""
-      }
+        body: "",
+        files: {},
+      },
     };
   },
 
+
   methods: {
+
+    handleEyecatchImage(e) {
+      const newFile = Object.assign({}, this.files);
+      newFile["eyecatch"] = e;
+      this.files = newFile;
+    },
+    handleEyecatchImageRemove(e) {
+      const newFile = Object.assign({}, this.files);
+      newFile["eyecatch"] = null;
+      this.files = newFile;
+    },
 
     async submitArticle() {
       const restaurantId = this.restaurantId();
       try {
+        if (this.files["eyecatch"]) {
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/${this.uid}/eyecatch.jpg`;
+          this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
+        }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
