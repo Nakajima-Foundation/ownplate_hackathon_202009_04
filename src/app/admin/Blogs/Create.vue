@@ -38,24 +38,29 @@
                       @file-type-mismatch="handleEyecatchImageRemove"
                       @image-remove="handleEyecatchImageRemove"
                     ></croppa>
-                    <div class="align-center t-caption w-128">{{ $t("editCommon.new") }}</div>
+                    <div class="align-center t-caption w-128">
+                      {{ $t("editCommon.new") }}
+                    </div>
                   </div>
                 </div>
-                </div>
-                <b-field>
-                  <b-input 
-                    v-model="blogInfo.body"
-                    maxlength="1000"
-                    rows="20" 
-                    type="textarea" 
-                    placeholder="本文"
-                  />
-                </b-field>
-                <b-field grouped position="is-right">
-                  <b-button @click="submitDraft" type="submit" outlined>下書きとして保存</b-button>
-                  <b-button @click="submitArticle" type="submit">投稿</b-button>
-                </b-field>
               </div>
+              <b-field>
+                <b-input
+                  v-model="blogInfo.body"
+                  maxlength="1000"
+                  rows="20"
+                  type="textarea"
+                  placeholder="本文"
+                />
+              </b-field>
+              <b-field grouped position="is-right">
+                <b-button type="submit" outlined @click="submitDraft">
+                  下書きとして保存
+                </b-button>
+                <b-button type="submit" @click="submitArticle">
+                  投稿
+                </b-button>
+              </b-field>
             </div>
           </div>
         </div>
@@ -79,14 +84,12 @@ export default {
         createdAt: "",
         public: false,
         body: "",
-        files: {},
-      },
+        files: {}
+      }
     };
   },
 
-
   methods: {
-
     handleEyecatchImage(e) {
       const newFile = Object.assign({}, this.files);
       newFile["eyecatch"] = e;
@@ -101,54 +104,66 @@ export default {
     async submitArticle() {
       const restaurantId = this.restaurantId();
       try {
-        const date = new Date() ;
+        const date = new Date();
         if (this.files["eyecatch"]) {
           const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
-          this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
+          this.blogInfo.imageUrl = await this.uploadFile(
+            this.files["eyecatch"],
+            path
+          );
         }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
           createdAt: firestore.FieldValue.serverTimestamp(),
           public: true,
-          body: this.blogInfo.body,
-        }
+          body: this.blogInfo.body
+        };
         const cleanData = this.cleanObject(articleData);
-        await db.doc(`restaurants/${this.restaurantId()}`).collection("blogs").add(cleanData);
-  
+        await db
+          .doc(`restaurants/${this.restaurantId()}`)
+          .collection("blogs")
+          .add(cleanData);
+
         this.$router.push({
           path: `/admin/restaurants/${this.restaurantId()}/blogs`
         });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
-  
+
     async submitDraft() {
       const restaurantId = this.restaurantId();
       try {
-        const date = new Date() ;
+        const date = new Date();
         if (this.files["eyecatch"]) {
           const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
-          this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
+          this.blogInfo.imageUrl = await this.uploadFile(
+            this.files["eyecatch"],
+            path
+          );
         }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
           createdAt: firestore.FieldValue.serverTimestamp(),
           public: false,
-          body: this.blogInfo.body,
-        }
+          body: this.blogInfo.body
+        };
         const cleanData = this.cleanObject(articleData);
-        await db.doc(`restaurants/${this.restaurantId()}`).collection("blogs").add(cleanData);
-  
+        await db
+          .doc(`restaurants/${this.restaurantId()}`)
+          .collection("blogs")
+          .add(cleanData);
+
         this.$router.push({
           path: `/admin/restaurants/${this.restaurantId()}/blogs`
         });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    },
+    }
   },
   computed: {
     hideUsersLink() {

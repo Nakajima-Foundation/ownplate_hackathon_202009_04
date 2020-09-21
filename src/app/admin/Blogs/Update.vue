@@ -190,7 +190,7 @@ export default {
           .set(cleanData);
 
         this.$router.push({
-          path: `/admin/restaurants/${this.restaurantId()}`
+          path: `/admin/restaurants/${this.restaurantId()}/blogs`
         });
       } catch (error) {
         console.log(error);
