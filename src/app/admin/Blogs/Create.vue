@@ -101,15 +101,15 @@ export default {
     async submitArticle() {
       const restaurantId = this.restaurantId();
       try {
-        createdAt = firestore.FieldValue.serverTimestamp()
+        const date = new Date() ;
         if (this.files["eyecatch"]) {
-          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${createdAt}.jpg`;
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
           this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
         }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
-          createdAt: createdAt,
+          createdAt: firestore.FieldValue.serverTimestamp(),
           public: true,
           body: this.blogInfo.body,
         }
@@ -127,6 +127,11 @@ export default {
     async submitDraft() {
       const restaurantId = this.restaurantId();
       try {
+        const date = new Date() ;
+        if (this.files["eyecatch"]) {
+          const path = `/images/restaurants/${restaurantId}/${restaurantId}/blogs/eyecatch/${date.getTime()}.jpg`;
+          this.blogInfo.imageUrl = await this.uploadFile(this.files["eyecatch"], path);
+        }
         const articleData = {
           title: this.blogInfo.title,
           imageUrl: this.blogInfo.imageUrl,
