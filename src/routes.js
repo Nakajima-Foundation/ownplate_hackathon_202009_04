@@ -3,8 +3,8 @@ export const customRoutes = [
     name: "r",
 		path: "/r",
     component: "user/RootPage.vue"
-	},
-	{
+  },
+  {
     name: "Blogs",
     path: "/blogs",
     component: "user/Blogs.vue"
@@ -65,11 +65,6 @@ export const customRoutes = [
     component: "user/TransactionsAct.vue"
   },
   {
-    name: "CreateNews",
-    path: "/news/create",
-    component: "/news/Create.vue"
-  },
-  {
     name: "admin",
     path: "/admin/restaurants",
     component: "admin/Index.vue"
@@ -122,6 +117,10 @@ export const customRoutes = [
       {
         path: "report",
         component: "admin/ReportPage.vue"
+      },
+      {
+        path: "create-blog",
+        component: "admin/Blogs/Create.vue"
       },
       {
         name: "admin-order-info",

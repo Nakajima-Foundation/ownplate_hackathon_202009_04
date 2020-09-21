@@ -113,6 +113,18 @@
         </b-button>
       </div>
 
+		  <!-- Blogs Page -->
+			<div class="align-center m-t-16">
+        <b-button
+          tag="nuxt-link"
+          :to="`/admin/restaurants/${restaurantid}/create-blog`"
+          style="min-width: 256px;"
+          class="b-reset op-button-small secondary"
+        >
+          <span class="c-primary">{{ $t("admin.blogs.title") }}</span>
+        </b-button>
+      </div>
+
       <div class="align-center m-t-16">
 
         <b-button
