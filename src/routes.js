@@ -124,6 +124,15 @@ export const customRoutes = [
         component: "admin/ReportPage.vue"
       },
       {
+        path: "blogs",
+        component: "admin/BlogManager.vue"
+      },
+      {
+        name: "update-blog",
+        path: "blogs/:blogId",
+        component: "admin/Blogs/Update.vue"
+      },
+      {
         path: "create-blog",
         component: "admin/Blogs/Create.vue"
       },
