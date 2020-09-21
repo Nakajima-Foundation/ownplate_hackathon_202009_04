@@ -2,8 +2,7 @@ export const customRoutes = [
   {
     name: "r",
 		path: "/r",
-    component: "user/test.vue"
-    // component: "user/RootPage.vue"
+    component: "user/RootPage.vue"
   },
   {
     name: "RestaurantsAll",
