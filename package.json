@@ -45,7 +45,7 @@
     "markdown-it": "^11.0.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.31",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.18.1",
     "nuxt-buefy": "^0.3.2",
     "nuxt-gmaps": "^1.1.9",
     "validator": "^13.0.0",
@@ -68,9 +68,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^6.2.2",
     "firebase-admin": "^13.9.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^9.0.0",
     "nuxt-sass-resources-loader": "^2.0.5",
     "prettier": "^1.19.1",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^17.0.1"
   }
 }
