@@ -42,7 +42,7 @@
     "cookie": "^0.4.1",
     "firebase": "^12.13.0",
     "google-libphonenumber": "^3.2.10",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^14.3.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.31",
     "nuxt": "^2.0.0",
